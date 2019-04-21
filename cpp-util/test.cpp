@@ -11,7 +11,9 @@ using std::round;
 using std::unordered_map;
 using std::unordered_set;
 using std::pair;
-
+using std::make_heap;
+using std::pop_heap;
+using std::push_heap;
 
 TEST(priority_queue, max_or_min_heap) {
     //create an pq and initialize
@@ -27,6 +29,32 @@ TEST(priority_queue, max_or_min_heap) {
     priority_queue<int, vector<int>, greater<int>> min_pq(arr.begin(), arr.end());
     EXPECT_EQ(min_pq.top(), 1);
 }
+
+//pq solution by templete method.
+// see https://zh.cppreference.com/w/cpp/algorithm/make_heap
+TEST(priority_queue, using_array_with_method)
+{
+    //
+    vector<int> arr{ 7,4,3,5,6,1,2 };
+
+    //max heap
+    make_heap(arr.begin(), arr.end());
+    EXPECT_EQ(7, arr[0]);
+    // also max heap
+    vector<int> arr_{ 1, 2, 3, 4, 5, 6 };
+    make_heap(arr_.begin(), arr_.end(), less<int>());
+    EXPECT_EQ(6, arr_[0]);
+
+   
+   
+    //min heap   
+    make_heap(arr_.begin(), arr_.end(), greater<int>());
+    EXPECT_EQ(1, arr_[0]);
+    //min heap with lambda
+    make_heap(arr.begin(), arr.end(), [](int a, int b) { return a > b; });
+    EXPECT_EQ(1, arr[0]);
+}
+
 
 TEST(SortStruct, lambda) {
     //node in node.h
