@@ -14,11 +14,13 @@ using std::pair;
 using std::make_heap;
 using std::pop_heap;
 using std::push_heap;
+using std::string;
 
-TEST(priority_queue, max_or_min_heap) {
+TEST(priority_queue, max_or_min_heap)
+{
     //create an pq and initialize
 
-    vector<int> arr{ 7,4,3,5,6,1,2 };
+    vector<int> arr{ 7, 4, 3, 5, 6, 1, 2 };
     //default max heap
     priority_queue<int> pq(arr.begin(), arr.end());
     EXPECT_EQ(pq.top(), 7);
@@ -30,12 +32,11 @@ TEST(priority_queue, max_or_min_heap) {
     EXPECT_EQ(min_pq.top(), 1);
 }
 
-//pq solution by templete method.
-// see https://zh.cppreference.com/w/cpp/algorithm/make_heap
+/// pq solution by template method.
+/// see https://zh.cppreference.com/w/cpp/algorithm/make_heap
 TEST(priority_queue, using_array_with_method)
 {
-    //
-    vector<int> arr{ 7,4,3,5,6,1,2 };
+    vector<int> arr{ 7, 4, 3, 5, 6, 1, 2 };
 
     //max heap
     make_heap(arr.begin(), arr.end());
@@ -45,8 +46,7 @@ TEST(priority_queue, using_array_with_method)
     make_heap(arr_.begin(), arr_.end(), less<int>());
     EXPECT_EQ(6, arr_[0]);
 
-   
-   
+
     //min heap   
     make_heap(arr_.begin(), arr_.end(), greater<int>());
     EXPECT_EQ(1, arr_[0]);
@@ -56,7 +56,8 @@ TEST(priority_queue, using_array_with_method)
 }
 
 
-TEST(SortStruct, lambda) {
+TEST(SortStruct, lambda)
+{
     //node in node.h
     //use lambda in C++ to define rule for sort templete.
     vector<node> arr;
@@ -64,14 +65,16 @@ TEST(SortStruct, lambda) {
     arr.push_back(node(3, 1));
     arr.push_back(node(3, 2));
     arr.push_back(node(7, 3));
-    sort(arr.begin(), arr.end(), [](const node & a, const node & b) {return a.c > b.c; });
+    sort(arr.begin(), arr.end(), [](const node & a, const node & b) { return a.c > b.c; });
     EXPECT_EQ(7, arr[0].a);
-    sort(arr.begin(), arr.end(), [](const node & a, const node & b) {return a.c < b.c; });
+    sort(arr.begin(), arr.end(), [](const node & a, const node & b) { return a.c < b.c; });
     EXPECT_EQ(2, arr[0].b);
 }
+
 //create dynamic array.
-TEST(vectorCtor, complex_vector) {
-    vector<int> arr(10, 2);//size = 10 , all elements initialized to 2.
+TEST(vectorCtor, complex_vector)
+{
+    vector<int> arr(10, 2); //size = 10 , all elements initialized to 2.
     EXPECT_EQ(2, arr[9]);
     EXPECT_EQ(10, arr.size());
     //Two-dimensional array , initialed to -1.
@@ -83,8 +86,8 @@ TEST(vectorCtor, complex_vector) {
 
 //round float numbers.
 //relative function : floor ceil
-TEST(math, round) {
-
+TEST(math, round)
+{
     //C++11 std::round 
     // see https://en.cppreference.com/w/cpp/numeric/math/round
     // see https://stackoverflow.com/questions/485525/round-for-float-in-c
@@ -116,25 +119,28 @@ TEST(math, round) {
 
 //reverse hashtable.
 //see https://stackoverflow.com/questions/8483985/obtaining-list-of-keys-and-values-from-unordered-map also
-TEST(unordered_map, traverse) {
+TEST(unordered_map, traverse)
+{
     unordered_map<int, int> map;
     map[1] = -1;
     map[2] = -2;
-    for (pair<int, int> i : map) {
+    for (pair<int, int> i : map)
+    {
         EXPECT_EQ(i.first, -i.second);
     }
 }
 
 //Set
 // see https://stackoverflow.com/questions/12850927/adding-elements-of-a-vector-to-an-unordered-set
-TEST(unordered_set, vector2set) {
+TEST(unordered_set, vector2set)
+{
     //build an set from vector.
-    std::vector<int> v{ 1,1,2,3 };
+    std::vector<int> v{ 1, 1, 2, 3 };
     std::unordered_set<int> s(v.begin(), v.end());
     EXPECT_EQ(s.size(), 3);
 
     //copy_function
-    std::vector<int> v_{ 1,1,2,2,3,3,3 };
+    std::vector<int> v_{ 1, 1, 2, 2, 3, 3, 3 };
     std::unordered_set<int> s_;
     std::copy(v_.begin(), v_.end(), std::inserter(s_, s_.end()));
     EXPECT_EQ(s_.size(), 3);
@@ -142,7 +148,8 @@ TEST(unordered_set, vector2set) {
 
 //transform set to vector.
 // see https://stackoverflow.com/questions/42519867/efficiently-moving-contents-of-stdunordered-set-to-stdvector
-TEST(vector, set2vector) {
+TEST(vector, set2vector)
+{
     unordered_set<int> set;
     for (size_t i = 0; i < 3; i++)
     {
@@ -153,4 +160,13 @@ TEST(vector, set2vector) {
     vector<int> res_;
     res_.insert(res_.end(), set.begin(), set.end());
     EXPECT_EQ(3, res_.size());
+}
+
+/// string 
+/// see https://stackoverflow.com/questions/313970/how-to-convert-stdstring-to-lower-case
+TEST(string, lowercase)
+{
+    string s = "AbCdEfG";
+    std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+    EXPECT_EQ(s, "abcdefg");
 }
