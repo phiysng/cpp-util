@@ -196,3 +196,26 @@ TEST(string, lowercase)
     std::transform(s.begin(), s.end(), s.begin(), ::tolower);
     EXPECT_EQ(s, "abcdefg");
 }
+
+/// see https://en.wikipedia.org/wiki/XOR_swap_algorithm
+/// see https://stackoverflow.com/questions/1533131/what-useful-bitwise-operator-code-tricks-should-a-developer-know-about
+TEST(bitwise, swap_and_so_on)
+{
+    int a = 1, b = 2;
+    //swap 
+    a = a + b;
+    b = a - b;
+    a = a - b;
+    EXPECT_EQ(a, 2);
+    EXPECT_EQ(b, 1);
+
+    int x = 1, y = 2;
+    x = x ^ y;
+    y = x ^ y;
+    x = x ^ y;
+    EXPECT_EQ(x, 2);
+    EXPECT_EQ(y, 1);
+
+    EXPECT_EQ(x & 1, 0);
+    EXPECT_EQ(y & 1, 1);
+}
