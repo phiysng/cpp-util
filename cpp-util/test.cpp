@@ -202,13 +202,14 @@ TEST(string, lowercase)
 TEST(bitwise, swap_and_so_on)
 {
     int a = 1, b = 2;
-    //swap 
+    //swap by mathmatic
     a = a + b;
     b = a - b;
     a = a - b;
     EXPECT_EQ(a, 2);
     EXPECT_EQ(b, 1);
 
+    //swap by bitwise
     int x = 1, y = 2;
     x = x ^ y;
     y = x ^ y;
@@ -216,6 +217,7 @@ TEST(bitwise, swap_and_so_on)
     EXPECT_EQ(x, 2);
     EXPECT_EQ(y, 1);
 
+    // is_even ?
     EXPECT_EQ(x & 1, 0);
     EXPECT_EQ(y & 1, 1);
 }
