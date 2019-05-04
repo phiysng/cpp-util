@@ -117,7 +117,7 @@ TEST(math, round)
 //string split
 // https://www.fluentcpp.com/2017/04/21/how-to-split-a-string-in-c/
 
-//reverse hashtable.
+//reverse hash table.
 //see https://stackoverflow.com/questions/8483985/obtaining-list-of-keys-and-values-from-unordered-map
 TEST(unordered_map, traverse)
 {
@@ -202,7 +202,7 @@ TEST(string, lowercase)
 TEST(bitwise, swap_and_so_on)
 {
     int a = 1, b = 2;
-    //swap by mathmatic
+    //swap by mathematic
     a = a + b;
     b = a - b;
     a = a - b;
