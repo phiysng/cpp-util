@@ -11,6 +11,7 @@ using std::round;
 using std::unordered_map;
 using std::unordered_set;
 using std::pair;
+using std::make_pair;
 using std::make_heap;
 using std::pop_heap;
 using std::push_heap;
@@ -30,6 +31,48 @@ TEST(priority_queue, max_or_min_heap)
 	//assign to min heap
 	priority_queue<int, vector<int>, greater<int>> min_pq(arr.begin(), arr.end());
 	EXPECT_EQ(min_pq.top(), 1);
+}
+
+TEST(priority_queue, pq_with_pair)
+{
+	/// see https://stackoverflow.com/questions/11103652/c-vector-of-pairs-initialization
+	vector<int> init{ 7, 4, 3, 5, 6, 1, 2 };
+	vector<pair<int, int>>  arr;
+	for (int i : init) {
+		arr.push_back(make_pair(i, 7 - i));
+	}
+
+	priority_queue<pair<int, int>> pq_pair(arr.begin(), arr.end());
+
+	EXPECT_EQ(7, pq_pair.top().first);
+	EXPECT_EQ(7, pq_pair.top().first + pq_pair.top().second);
+
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq_pair_min(arr.begin(), arr.end());
+	EXPECT_EQ(1, pq_pair_min.top().first);
+}
+
+/// https://stackoverflow.com/questions/16111337/declaring-a-priority-queue-in-c-with-a-custom-comparator
+/// 自定义比较方法 为按照pair<>.second建造大顶堆
+template <typename T, typename U>
+class myPairComparetor {
+public:
+	bool operator()(pair<T, U>& a, pair<T, U>& b) {
+		return a.second < b.second;
+	}
+};
+
+TEST(priority_queue, pq_with_customer_comparetor)
+{
+	vector<int> init{ 7, 4, 3, 5, 6, 1, 2 };
+	vector<pair<int, int>>  arr;
+	for (int i : init) {
+		arr.push_back(make_pair(i, 7 - i));
+	}
+	priority_queue<pair<int, int>, vector<pair<int, int>>, myPairComparetor<int, int>> my_pq(arr.begin(), arr.end());
+	EXPECT_EQ(6, my_pq.top().second);
+	my_pq.pop();
+	EXPECT_EQ(5, my_pq.top().second);
+
 }
 
 /// pq solution by template method.
@@ -65,9 +108,9 @@ TEST(SortStruct, lambda)
 	arr.push_back(node(3, 1));
 	arr.push_back(node(3, 2));
 	arr.push_back(node(7, 3));
-	sort(arr.begin(), arr.end(), [](const node & a, const node & b) { return a.c > b.c; });
+	sort(arr.begin(), arr.end(), [](const node& a, const node& b) { return a.c > b.c; });
 	EXPECT_EQ(7, arr[0].a);
-	sort(arr.begin(), arr.end(), [](const node & a, const node & b) { return a.c < b.c; });
+	sort(arr.begin(), arr.end(), [](const node& a, const node& b) { return a.c < b.c; });
 	EXPECT_EQ(2, arr[0].b);
 }
 
