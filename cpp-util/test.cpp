@@ -16,6 +16,8 @@ using std::make_heap;
 using std::pop_heap;
 using std::push_heap;
 using std::string;
+using std::min;
+using std::max;
 
 TEST(priority_queue, max_or_min_heap)
 {
@@ -247,6 +249,13 @@ TEST(vector, sum)
 	for (auto& n : arr)
 		sum_of_elems += n;
 	EXPECT_EQ(55, sum_of_elems);
+}
+
+/// see https://stackoverflow.com/questions/9424173/find-the-smallest-amongst-3-numbers-in-c
+TEST(vector, min)
+{
+	EXPECT_EQ(1, min({ 1,2,3 }));
+	EXPECT_EQ(3, max({ 1,2,3 }));
 }
 
 /// string 
