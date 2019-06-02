@@ -251,6 +251,30 @@ TEST(vector, sum)
 	EXPECT_EQ(55, sum_of_elems);
 }
 
+// sort vector
+TEST(vector, sort)
+{
+	vector<vector<int>> v{ {5, 9, 4, 12, 4},
+								  {7, 9, 3, 4, 7, 9},
+								  {6, 5, 11},
+								  {5, 8, 7, 3},
+								  {5, 9, 5, 1, 1} };
+	
+	//降序
+	std::sort(v.begin(), v.end(), std::greater<std::vector<int>>());
+	EXPECT_EQ(7, v[0][0]);
+
+	//升序
+	std::sort(v.begin(), v.end());
+	EXPECT_EQ(5, v[0][0]);
+	EXPECT_EQ(8, v[0][1]);
+	EXPECT_EQ(5, v[1][0]);
+
+	//另一种降序排序的方式
+	std::sort(v.begin(), v.end(), std::greater<std::vector<int>>());
+	EXPECT_EQ(7, v[0][0]);
+}
+
 /// see https://stackoverflow.com/questions/9424173/find-the-smallest-amongst-3-numbers-in-c
 TEST(vector, min)
 {
@@ -290,4 +314,24 @@ TEST(bitwise, swap_and_so_on)
 	// is_even ?
 	EXPECT_EQ(x & 1, 0);
 	EXPECT_EQ(y & 1, 1);
+}
+
+TEST(Type, Int2Bool) {
+
+	/// !!10 == 1 !!0 == 0
+	/// !!i(i > 0) => 1 
+	/// !!0 => 0
+	int a = 10;
+	int b = 0;
+	EXPECT_FALSE(!a);
+	EXPECT_FALSE(b);
+	EXPECT_EQ(1, !!a);
+	EXPECT_EQ(0, !!b);
+	EXPECT_EQ(true, !!a);
+	EXPECT_EQ(false, !!b);
+
+	/// 当然 !!-1 == 1 也成立
+	a = -a;
+	EXPECT_EQ(1, !!a);
+	EXPECT_EQ(true, !!a);
 }
