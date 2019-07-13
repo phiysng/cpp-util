@@ -312,12 +312,12 @@ TEST(string, lowercase)
 	EXPECT_EQ(s, "abcdefg");
 }
 
-/// see https://en.wikipedia.org/wiki/XOR_swap_algorithm
-/// see https://stackoverflow.com/questions/1533131/what-useful-bitwise-operator-code-tricks-should-a-developer-know-about
+// see https://en.wikipedia.org/wiki/XOR_swap_algorithm
+// see https://stackoverflow.com/questions/1533131/what-useful-bitwise-operator-code-tricks-should-a-developer-know-about
 TEST(bitwise, swap_and_so_on)
 {
 	int a = 1, b = 2;
-	//swap by mathematic
+	//swap by mathematics
 	a = a + b;
 	b = a - b;
 	a = a - b;
