@@ -129,6 +129,7 @@ TEST(vectorCtor, complex_vector)
 	EXPECT_EQ(-1, res[0][0]);
 }
 
+
 //round float numbers.
 //relative function : floor ceil
 TEST(math, round)
@@ -259,7 +260,7 @@ TEST(vector, sort)
 								  {6, 5, 11},
 								  {5, 8, 7, 3},
 								  {5, 9, 5, 1, 1} };
-	
+
 	//½µÐò
 	std::sort(v.begin(), v.end(), std::greater<std::vector<int>>());
 	EXPECT_EQ(7, v[0][0]);
@@ -280,6 +281,26 @@ TEST(vector, min)
 {
 	EXPECT_EQ(1, min({ 1,2,3 }));
 	EXPECT_EQ(3, max({ 1,2,3 }));
+}
+
+
+// append vector
+// https://stackoverflow.com/questions/2551775/appending-a-vector-to-a-vector
+TEST(vector, append)
+{
+	vector<int> a = { 1,2,3 };
+	vector<int> b = { 4,5,6 };
+	vector<int> c = { 1,2,3,4,5,6 };
+
+	a.insert(end(a), begin(b), end(b));
+	EXPECT_EQ(a, c);
+
+
+	a = { 1,2,3 };
+	b = { 4,5,6 };
+	std::copy(b.begin(), b.end(), std::back_inserter(a));
+	EXPECT_EQ(a, c);
+
 }
 
 /// string 
