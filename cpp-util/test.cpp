@@ -28,10 +28,10 @@ TEST(priority_queue, max_or_min_heap)
 	priority_queue<int> pq(arr.begin(), arr.end());
 	EXPECT_EQ(pq.top(), 7);
 	//assign to max heap
-	priority_queue<int, vector<int>, less<int>> max_pq(arr.begin(), arr.end());
+	priority_queue<int, vector<int>, less<>> max_pq(arr.begin(), arr.end());
 	EXPECT_EQ(max_pq.top(), 7);
 	//assign to min heap
-	priority_queue<int, vector<int>, greater<int>> min_pq(arr.begin(), arr.end());
+	priority_queue<int, vector<int>, greater<>> min_pq(arr.begin(), arr.end());
 	EXPECT_EQ(min_pq.top(), 1);
 }
 
@@ -41,22 +41,22 @@ TEST(priority_queue, pq_with_pair)
 	vector<int> init{ 7, 4, 3, 5, 6, 1, 2 };
 	vector<pair<int, int>>  arr;
 	for (int i : init) {
-		arr.push_back(make_pair(i, 7 - i));
+		arr.emplace_back(i, 7 - i);
 	}
 
-	priority_queue<pair<int, int>> pq_pair(arr.begin(), arr.end());
+	const priority_queue<pair<int, int>> pq_pair(arr.begin(), arr.end());
 
 	EXPECT_EQ(7, pq_pair.top().first);
 	EXPECT_EQ(7, pq_pair.top().first + pq_pair.top().second);
 
-	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq_pair_min(arr.begin(), arr.end());
+	const priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq_pair_min(arr.begin(), arr.end());
 	EXPECT_EQ(1, pq_pair_min.top().first);
 }
 
 /// https://stackoverflow.com/questions/16111337/declaring-a-priority-queue-in-c-with-a-custom-comparator
 /// 自定义比较方法 为按照pair<>.second建造大顶堆
 template <typename T, typename U>
-class myPairComparetor {
+class myPairComparator {
 public:
 	bool operator()(pair<T, U>& a, pair<T, U>& b) {
 		return a.second < b.second;
@@ -68,9 +68,9 @@ TEST(priority_queue, pq_with_customer_comparetor)
 	vector<int> init{ 7, 4, 3, 5, 6, 1, 2 };
 	vector<pair<int, int>>  arr;
 	for (int i : init) {
-		arr.push_back(make_pair(i, 7 - i));
+		arr.emplace_back(i, 7 - i);
 	}
-	priority_queue<pair<int, int>, vector<pair<int, int>>, myPairComparetor<int, int>> my_pq(arr.begin(), arr.end());
+	priority_queue<pair<int, int>, vector<pair<int, int>>, myPairComparator<int, int>> my_pq(arr.begin(), arr.end());
 	EXPECT_EQ(6, my_pq.top().second);
 	my_pq.pop();
 	EXPECT_EQ(5, my_pq.top().second);
@@ -88,12 +88,12 @@ TEST(priority_queue, using_array_with_method)
 	EXPECT_EQ(7, arr[0]);
 	// also max heap
 	vector<int> arr_{ 1, 2, 3, 4, 5, 6 };
-	make_heap(arr_.begin(), arr_.end(), less<int>());
+	make_heap(arr_.begin(), arr_.end(), less<>());
 	EXPECT_EQ(6, arr_[0]);
 
 
 	//min heap   
-	make_heap(arr_.begin(), arr_.end(), greater<int>());
+	make_heap(arr_.begin(), arr_.end(), greater<>());
 	EXPECT_EQ(1, arr_[0]);
 	//min heap with lambda
 	make_heap(arr.begin(), arr.end(), [](int a, int b) { return a > b; });
@@ -107,9 +107,9 @@ TEST(SortStruct, lambda)
 	//use lambda in C++ to define rule for sort template.
 	vector<node> arr;
 
-	arr.push_back(node(3, 1));
-	arr.push_back(node(3, 2));
-	arr.push_back(node(7, 3));
+	arr.emplace_back(3, 1);
+	arr.emplace_back(3, 2);
+	arr.emplace_back(7, 3);
 	sort(arr.begin(), arr.end(), [](const node& a, const node& b) { return a.c > b.c; });
 	EXPECT_EQ(7, arr[0].a);
 	sort(arr.begin(), arr.end(), [](const node& a, const node& b) { return a.c < b.c; });
@@ -262,7 +262,7 @@ TEST(vector, sort)
 								  {5, 9, 5, 1, 1} };
 
 	//降序
-	std::sort(v.begin(), v.end(), std::greater<std::vector<int>>());
+	std::sort(v.begin(), v.end(), std::greater<>());
 	EXPECT_EQ(7, v[0][0]);
 
 	//升序
@@ -272,7 +272,7 @@ TEST(vector, sort)
 	EXPECT_EQ(5, v[1][0]);
 
 	//另一种降序排序的方式
-	std::sort(v.begin(), v.end(), std::greater<std::vector<int>>());
+	std::sort(v.begin(), v.end(), std::greater<>());
 	EXPECT_EQ(7, v[0][0]);
 }
 
