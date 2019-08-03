@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include"node.h"
+#include <utility>
 
 using std::vector;
 using std::priority_queue;
@@ -234,6 +235,22 @@ TEST(vector, set2vector)
 	EXPECT_EQ(3, res_.size());
 }
 
+//transform map to vector<pair<>>
+TEST(vector, map2vector)
+{
+	unordered_map<int, int> map;
+	map[1] = 2;
+	map[2] = 3;
+	map[3] = 5;
+
+	vector<pair<int, int>>  v(map.begin(), map.end());
+
+	EXPECT_EQ(v.size(), 3);
+	EXPECT_EQ(v[0].first, 1);
+	EXPECT_EQ(v[0].second, 2);
+}
+
+
 /// get the sum of the vector collection.
 /// see https://stackoverflow.com/questions/3221812/how-to-sum-up-elements-of-a-c-vector
 TEST(vector, sum)
@@ -272,8 +289,8 @@ TEST(vector, sort)
 	EXPECT_EQ(5, v[1][0]);
 
 	//另一种降序排序的方式
-	std::sort(v.begin(), v.end(), std::greater<>());
-	EXPECT_EQ(7, v[0][0]);
+	//std::sort(v.begin(), v.end(), std::greater<>());
+	//EXPECT_EQ(7, v[0][0]);
 }
 
 /// see https://stackoverflow.com/questions/9424173/find-the-smallest-amongst-3-numbers-in-c
